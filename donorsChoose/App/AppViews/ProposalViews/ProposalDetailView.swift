@@ -28,17 +28,13 @@ struct ProposalDetailView: View {
     var header: some View {
         ZStack{
             AsyncSimpleImage(
-                imageURLString: model.thumbImageURL,
-                //imageURLString: model.imageURL,
+                imageURLString: model.imageURL,
                 placeholder: imagePlaceHolder
             )
                 .aspectRatio(contentMode: .fill)
-//                .aspectRatio(contentMode: .fit)
-//                .aspectRatio(contentMode: .fill)
-                //.frame(width:geo.size.width)//, height:200)
-                .frame(height:150)//, height:200)
+                .frame(height:150)
+                // .edgesIgnoringSafeArea(.all)
                 .clipped()
-                //.scaleEffect(self.scale)
             VStack {
                 HStack {
                     NavigationLink(destination: TeacherDetailView(
@@ -156,11 +152,11 @@ struct ProposalDetailView: View {
                     .cornerRadius(8)
             }
         }
+        .navigationBarTitle(Text("Proposal"), displayMode: .inline)
         .navigationBarItems(leading: leadingButton, trailing: trailingButton)
         .sheet(isPresented: $showActionSheet) {
             ProjectActionSheet()
                 .environmentObject(self.appState)
-            // .environment(\.window, self.window)
         }
     }
     
