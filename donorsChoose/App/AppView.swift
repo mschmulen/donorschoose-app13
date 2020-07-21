@@ -6,7 +6,6 @@
 
 import Foundation
 import SwiftUI
-//import AuthenticationServices
 
 @available(iOS 13.0, *)
 struct AppView: View {
@@ -45,11 +44,6 @@ struct AppView: View {
             print( "showTopView")
             self.appState.topView = .tabView
         }
-    }
-    
-    // MAS TODO Check AuthStatus ! on startup
-    func checkAuthStatus() {
-        print( "checkAuthStatus")
     }
 }
 
