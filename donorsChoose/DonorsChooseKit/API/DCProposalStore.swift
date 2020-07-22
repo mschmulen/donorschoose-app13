@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-// ProjectSearchDataModel in legacy app
+/// DonorsChoose Proposal Store
 public final class DCProposalStore: ObservableObject {
     
     public let objectWillChange = ObservableObjectPublisher()
@@ -118,8 +118,8 @@ extension DCProposalStore {
                 //let decoder = JSONDecoder()
                 //let posts = try decoder.decode([Post].self, from: data)
                 let projectModel = try JSONDecoder().decode(ProjectNetworkModel.self, from: data)
-                print( "projectModel \(projectModel)")
-                print( "\(projectModel.proposals.count)")
+                //print( "projectModel \(projectModel)")
+                //print( "\(projectModel.proposals.count)")
                 DispatchQueue.main.async {
                     self.models = projectModel.proposals
                 }

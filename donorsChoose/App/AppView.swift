@@ -16,9 +16,8 @@ struct AppView: View {
     
     @EnvironmentObject var appState: AppState
     
+    @ViewBuilder
     var body: some View {
-        Group {
-            
             if appState.topView == .none {
                 Text( "none")
             }
@@ -33,10 +32,7 @@ struct AppView: View {
                     .environmentObject(appState)
             }
             
-            EmptyView()
-        }.onAppear {
-            print( "AppView.onAppear")
-        }
+            //EmptyView()
     }//end body
     
 }

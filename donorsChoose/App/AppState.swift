@@ -29,7 +29,7 @@ class AppState: ObservableObject {
     let coreDataStore:CoreDataStore
     let currentDeviceInfo: DeviceModel = DeviceModel()
     let currentAppInfo: AppModel = AppModel()
-    let showOnboarding: Bool = false
+    
     
     init(
         context: NSManagedObjectContext
@@ -41,6 +41,10 @@ class AppState: ObservableObject {
         DispatchQueue.main.async {
             self.objectWillChange.send()
         }
+    }
+    
+    var showOnboarding: Bool {
+        false
     }
     
 }

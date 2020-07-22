@@ -50,6 +50,14 @@ struct MoreView: View {
                         Text("More Stats about this app")
                     }
                 }
+                
+                Section(header:Text("DEV")) {
+                    Button(action: {
+                        self.appState.topView = .onboardingView
+                    }) {
+                        Text("Show onboarding")
+                    }
+                }
             }
             .navigationBarTitle(Text("More"), displayMode: .inline)
         }

@@ -87,3 +87,24 @@ extension LocationViewModel: CLLocationManagerDelegate {
     }//end geocode
     
 }
+
+extension LocationViewModel {
+
+    var IsLocationServiceAvailable:Bool {
+        
+        if CLLocationManager.locationServicesEnabled() {
+            switch CLLocationManager.authorizationStatus() {
+            case .notDetermined, .restricted, .denied:
+                return false
+            case .authorizedAlways, .authorizedWhenInUse:
+                return true
+            @unknown default:
+                return false
+                
+            }
+        } else {
+            return false
+        }
+    }
+    
+}

@@ -28,13 +28,43 @@ struct OnBoardingView: View {
                 
                 Text("Enable Locaiton Services so we can find exciting projects near you !")
                     .padding()
-                Button(action: {
-                    self.locationViewModel = LocationViewModel()
-                    let location = self.locationViewModel?.location
-                    print( "location")
-                }) {
-                    Text("Enable Location Services")
-                }.padding()
+                
+                
+                if self.locationViewModel == nil {
+                    Button(action: {
+                        self.locationViewModel = LocationViewModel()
+                        let location = self.locationViewModel?.location
+                        
+                        // self.appState.changeTopView(topView: .tabView)
+                        print( "location")
+                    }) {
+                        Text("Enable Location Services")
+                    }.padding()
+                } else {
+                    if self.locationViewModel!.IsLocationServiceAvailable {
+                        Button(action: {
+                            self.locationViewModel = LocationViewModel()
+                            let location = self.locationViewModel?.location
+                            self.appState.changeTopView(topView: .tabView)
+                        }) {
+                            Text("Lets Get Started")
+                        }.padding()
+                    } else {
+                        Button(action: {
+                            self.locationViewModel = LocationViewModel()
+                            let location = self.locationViewModel?.location
+                            
+                            // self.appState.changeTopView(topView: .tabView)
+                            print( "location")
+                        }) {
+                            Text("Enable Location Services")
+                        }.padding()
+                    }
+
+                }
+                
+                
+                
                 
             }.padding()
             
@@ -43,7 +73,7 @@ struct OnBoardingView: View {
                 Button(action: {
                     self.appState.changeTopView(topView: .tabView)
                 }) {
-                    Text("Exit")
+                    Text("No Thank You")
                 }
             }.padding()
         }
