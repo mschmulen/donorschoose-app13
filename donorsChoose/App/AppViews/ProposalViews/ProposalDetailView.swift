@@ -155,7 +155,7 @@ struct ProposalDetailView: View {
         .navigationBarTitle(Text("Proposal"), displayMode: .inline)
         .navigationBarItems(leading: leadingButton, trailing: trailingButton)
         .sheet(isPresented: $showActionSheet) {
-            ProjectActionSheet()
+            ProjectActionSheet(model: self.model)
                 .environmentObject(self.appState)
         }
     }
@@ -206,11 +206,37 @@ struct ProjectActionSheet: View {
     
     @EnvironmentObject var appState: AppState
     
+    var model: ProposalModel
+    
     var body: some View {
-        VStack {
-            Text("yack")
-            Text("yack")
-            Text("yack")
+        VStack(alignment: .center, spacing: 20) {
+            Button(action: {
+                print( "TODO email")
+            }) {
+                Text("Email to a friend")
+                    .foregroundColor(.red)
+            }
+            Button(action: {
+                print( "TODO email")
+            }) {
+                Text("Open in Safari")
+                    .foregroundColor(.red)
+            }
+            Button(action: {
+                print( "TODO copy URL")
+            }) {
+                Text("Copy URL")
+                    .foregroundColor(.red)
+            }
+            Button(action: {
+                self.appState.addFavoriteProject(
+                    id: self.model.id,
+                    title: self.model.title,
+                    expirationDate: self.model.expirationDate
+                )
+            }) {
+                Text("Add to my favorites")
+            }
         }
     }
 }

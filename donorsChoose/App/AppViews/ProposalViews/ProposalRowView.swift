@@ -11,6 +11,8 @@ struct ProposalRowView: View {
     
     var model: ProposalModel
     
+    @State var percentComplete:CGFloat = 0
+    
     var imagePlaceHolder: some View {
         ZStack {
             Color(.blue).edgesIgnoringSafeArea(.all)
@@ -51,13 +53,31 @@ struct ProposalRowView: View {
                     .font(.system(size: 13, weight: .light, design: .rounded))
                 }.padding()
             }
-            Rectangle()
-                .frame(height: 5)
+            VStack(alignment: .leading) {
+                GeometryReader { geometry in
+                    ZStack {
+                        Rectangle()
+                            .frame(width: geometry.size.width * 0.5, height: 5)
+                            .foregroundColor(.gray)
+//                            .alignmentGuide(.leading) { (dim) -> CGFloat in
+//                                0
+//                        }
+                        Rectangle()
+                            .frame(width: geometry.size.width * self.percentComplete, height: 3, alignment: .leading)
+                            .foregroundColor(.green)
+                    }
+                }
+            }//.frame(alignment: .leading)
             HStack {
-                Text("22")
+                Text("\(model.daysLeft)")
                 .font(.system(size: 18, weight: .bold, design: .rounded))
                 Text("days left!")
                 .font(.system(size: 18, weight: .medium, design: .rounded))
+            }
+        }
+        .onAppear {
+            withAnimation {
+                self.percentComplete = CGFloat.random(in: 0...1)
             }
         }
     }

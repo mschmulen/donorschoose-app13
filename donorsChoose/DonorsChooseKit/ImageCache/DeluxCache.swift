@@ -70,14 +70,11 @@ internal final class DeluxCache<Key: Hashable, Value> {
         
         self.fileManager = fileManager
         
-        // MAS TODO make the base path configurable, .cachesDirectory or ,documentDirectory   FileManager.SearchPathDirectory
-        
         // let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let paths = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)
         let firstPath = paths.first!
         cacheFilePath = firstPath.appendingPathComponent("\(diskStoragePrefix)")
         
-        // MAS TODO if you are unable to do this then enableFileCache = false
         try! fileManager.createDirectory(
             atPath: cacheFilePath.path,
             withIntermediateDirectories: true,
@@ -93,9 +90,6 @@ internal final class DeluxCache<Key: Hashable, Value> {
         )
         wrapped.setObject(entry, forKey: WrappedKey(key))
         keyTracker.keys.insert(key)
-
-        // MAS TODO remove this
-//            writeEntryToDisk(entry: entry)
     }
     
     func value(forKey key: Key) -> Value? {

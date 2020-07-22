@@ -35,7 +35,7 @@ struct AppView: View {
             
             EmptyView()
         }.onAppear {
-            
+            print( "AppView.onAppear")
         }
     }//end body
     

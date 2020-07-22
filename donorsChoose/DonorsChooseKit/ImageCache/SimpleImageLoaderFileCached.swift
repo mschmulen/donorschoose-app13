@@ -91,16 +91,14 @@ internal class SimpleImageLoaderFileCached: ObservableObject {
             return
         }
         
-        /// TODO dont bother writing nil values !
         image.map {
-            deluxCache?[imageKey] = $0   // imageMemoryCache?[s3Key] = $0
+            deluxCache?[imageKey] = $0
         }
         
         if let image = image {
             //write it to the file storage so its there on startup
             deluxCache?.writeToFileStorage(key: imageKey, image:image )
         }
-        // this is a write action to the imageMemoryCache so do we also need to save it out ?
     }
     
     func cancel() {

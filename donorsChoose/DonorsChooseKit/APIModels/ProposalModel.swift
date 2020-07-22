@@ -105,6 +105,19 @@ public struct ProposalModel: Codable, Identifiable {
 
 extension ProposalModel {
     
+    var daysLeft: Int {
+        let diffComponents = Calendar.current.dateComponents([.day], from: Date(), to:expirationDate )
+        if let days = diffComponents.day {
+            return days
+        } else {
+            return 0
+        }
+    }
+    
+}
+
+extension ProposalModel {
+    
     static var mock:ProposalModel {
         
         let str = """

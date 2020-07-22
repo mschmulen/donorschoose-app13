@@ -52,13 +52,10 @@ struct FavoritesView: View {
     var body: some View {
         NavigationView {
             List {
-                
                 if proposals.count != 0 {
                     Section(header:Text("Proposals")) {
                         ForEach(proposals, id: \.title) {
-                            FavoriteProposalRow(
-                                model: $0
-                            )
+                            FavoriteProposalRow(model: $0)
                         }
                         .onDelete(perform: deleteProposalModel)
                     }
@@ -67,31 +64,16 @@ struct FavoritesView: View {
                 if teachers.count != 0 {
                     Section(header:Text("Teachers")) {
                         ForEach(teachers, id: \.title) {
-                            FavoriteTeacherRow(
-                                model: $0
-                            )
-                            
-//                            NavigationLink(destination: TeacherDetailView(
-//                                teacherID: $0.id,
-//                                teacherName: $0.title
-//                            )){
-//                                FavoriteTeacherRow(
-//                                    model: $0
-//                                )
-//                            }.buttonStyle(PlainButtonStyle())
-                            
-                            
+                            FavoriteTeacherRow(model: $0)
                         }
                         .onDelete(perform: deleteTeacherModel)
                     }
                 }
-                
+
                 if schools.count != 0 {
                     Section(header:Text("Schools")) {
                         ForEach(schools, id: \.title) {
-                            FavoriteSchoolRow(
-                                model: $0
-                            )
+                            FavoriteSchoolRow( model: $0 )
                         }
                         .onDelete(perform: deleteSchoolModel)
                     }
@@ -99,10 +81,10 @@ struct FavoritesView: View {
                 
                 if searches.count != 0 {
                     Section(header:Text("Searches")) {
-                        ForEach(searches, id: \.id) {
-                            FavoriteSearchRow(
-                                model: $0
-                            )
+                        ForEach(searches, id: \.id) { model in
+                            //NavigationLink(destination: CustomSearchView(onComplete: nil) ) {
+                                FavoriteSearchRow( model: model )
+                            //}
                         }
                         .onDelete(perform: deleteSearchModel)
                     }
