@@ -1,5 +1,5 @@
 //
-//  RowViews.swift
+//  FavoriteProposalRow.swift
 //  donorsChoose
 //
 //  Copyright © 2020 jumptack. All rights reserved.
@@ -21,11 +21,17 @@ struct FavoriteProposalRow: View {
         VStack(alignment: .leading){
             if model.title != nil {
                 Text("\(model.title!)")
+                    .font(.system(size: 20, weight: .medium, design: .rounded))
             }
-            if model.expirationDate != nil {
-                Text("expires on \(model.expirationDate!, formatter: Self.dateDateFormat)")
+            HStack {
+                Text("PROPOSAL")
+                    .font(.system(size: 15, weight: .medium, design: .rounded))
+                Spacer()
+                if model.expirationDate != nil {
+                    Text("expires on \(model.expirationDate!, formatter: Self.dateDateFormat)")
+                        .font(.system(size: 15, weight: .medium, design: .rounded))
+                }
             }
-            Text("PROPOSAL")
         }
     }
 }
@@ -36,8 +42,10 @@ struct FavoriteTeacherRow: View {
     
     var body: some View {
         VStack{
-            Text("\(model.title ?? "~~~~~")")
+            Text("\(model.title ?? "~")")
+                .font(.system(size: 20, weight: .medium, design: .rounded))
             Text("Teacher")
+                .font(.system(size: 15, weight: .medium, design: .rounded))
         }
     }
 }
@@ -48,8 +56,10 @@ struct FavoriteSchoolRow: View {
     
     var body: some View {
         VStack{
-            Text("\(model.title ?? "~~~~~")")
+            Text("\(model.title ?? "~")")
+                .font(.system(size: 20, weight: .medium, design: .rounded))
             Text("School")
+                .font(.system(size: 15, weight: .medium, design: .rounded))
         }
     }
 }
@@ -60,8 +70,10 @@ struct FavoriteSearchRow: View {
     
     var body: some View {
         VStack{
-            Text("\(model.title ?? "~~~~~")")
+            Text("\(model.title ?? "~")")
+                .font(.system(size: 20, weight: .medium, design: .rounded))
             Text("Search")
+                .font(.system(size: 15, weight: .medium, design: .rounded))
         }
     }
 }

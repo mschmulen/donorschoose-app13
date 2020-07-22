@@ -24,8 +24,6 @@ struct NearMeView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("userLatitude: \(locationViewModel.userLatitude)")
-                Text("userLongitude: \(locationViewModel.userLongitude)")
                 List {
                     ForEach( self.store.models) { model in
                         NavigationLink(destination: ProposalDetailView(model: model)) {
@@ -34,30 +32,17 @@ struct NearMeView: View {
                     }
                 }
             }.onAppear {
-                print("onAppear ")
-                if let location = self.locationViewModel.location {
-                    print( "location found \(location.coordinate)")
-                    
+                if let _ = self.locationViewModel.location {
                     self.store.requestConfig = .nearestGeo(
                         latitude: self.locationViewModel.userLatitude,
                         longitude: self.locationViewModel.userLongitude
                     )
-                    
-//                    self.store.fetchCustom(
-//                        requestConfig: .nearestGeo(
-//                            latitude: self.locationViewModel.userLatitude,
-//                            longitude: self.locationViewModel.userLongitude
-//                        )
-//                    )
+                } else {
+                    self.store.requestConfig = .sort(searchSortOption: SearchSortOption.urgency)
                 }
-                
-                self.store.requestConfig = .sort(searchSortOption: SearchSortOption.urgency)
-                
-                //self.store.fetchCustom(requestConfig: .sort(searchSortOption: SearchSortOption.urgency))
-                
             }
             .listStyle(GroupedListStyle())
-            .navigationBarTitle("Near Me")
+            .navigationBarTitle(Text("Near Me"), displayMode: .inline)
         }
     }
 }

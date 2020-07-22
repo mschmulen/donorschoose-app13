@@ -55,7 +55,7 @@ struct CustomSearchView: View {
                     Text("SAVE")
                 }
             )
-            .navigationBarTitle(Text("Add Model"), displayMode: .inline)
+            //.navigationBarTitle(Text("Add Model"), displayMode: .inline)
             .onAppear(perform: {
                 print( "on Appear")
                 self.store.refresh()
@@ -64,22 +64,6 @@ struct CustomSearchView: View {
         }
     }
     
-//    private func addModelAction() {
-//        print( "TODO add the model ")
-//
-//        appState.addFavoriteSearch(
-//            id: UUID().uuidString,
-//            keyword: keyword
-//        )
-//
-//        self.presentationMode.wrappedValue.dismiss()
-//
-////        onComplete?(
-////            title.isEmpty ? AddProposal.DefaultModelTitle : title,
-////            id.isEmpty ? UUID().uuidString : id,
-////            dateFavorited
-////        )
-//    }
 }
 
 struct SearchView: View {

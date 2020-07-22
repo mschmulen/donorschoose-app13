@@ -51,7 +51,7 @@ struct MoreView: View {
                     }
                 }
             }
-            .navigationBarTitle("More")
+            .navigationBarTitle(Text("More"), displayMode: .inline)
         }
     }
 }

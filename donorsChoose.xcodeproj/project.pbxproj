@@ -23,6 +23,7 @@
 		76AE2CFF24C2664D00644D45 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AE2CFE24C2664D00644D45 /* LocationViewModel.swift */; };
 		76AE2D0124C2751000644D45 /* Store+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AE2D0024C2751000644D45 /* Store+Helper.swift */; };
 		76AE2D0324C2754700644D45 /* InspiresMeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AE2D0224C2754700644D45 /* InspiresMeDetailView.swift */; };
+		76BB80D624C869830078549D /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BB80D524C869830078549D /* UserSettings.swift */; };
 		76D0AF4D24C0DFD500F4C4BB /* DCTeacherStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D0AF4C24C0DFD500F4C4BB /* DCTeacherStore.swift */; };
 		76E4362024C0A4B500C99FCC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E4361F24C0A4B500C99FCC /* AppDelegate.swift */; };
 		76E4362224C0A4B500C99FCC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E4362124C0A4B500C99FCC /* SceneDelegate.swift */; };
@@ -87,6 +88,7 @@
 		76AE2CFE24C2664D00644D45 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		76AE2D0024C2751000644D45 /* Store+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Store+Helper.swift"; sourceTree = "<group>"; };
 		76AE2D0224C2754700644D45 /* InspiresMeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspiresMeDetailView.swift; sourceTree = "<group>"; };
+		76BB80D524C869830078549D /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		76D0AF4C24C0DFD500F4C4BB /* DCTeacherStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCTeacherStore.swift; sourceTree = "<group>"; };
 		76E4361C24C0A4B500C99FCC /* donorsChoose13.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = donorsChoose13.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76E4361F24C0A4B500C99FCC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -227,6 +229,14 @@
 			path = InspiresMe;
 			sourceTree = "<group>";
 		};
+		76BB80D424C869780078549D /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				76BB80D524C869830078549D /* UserSettings.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 		76E4361324C0A4B500C99FCC = {
 			isa = PBXGroup;
 			children = (
@@ -251,10 +261,11 @@
 		76E4361E24C0A4B500C99FCC /* donorsChoose */ = {
 			isa = PBXGroup;
 			children = (
-				76E4361F24C0A4B500C99FCC /* AppDelegate.swift */,
-				76E4362124C0A4B500C99FCC /* SceneDelegate.swift */,
-				76A3F6C624C7A8B600763A8A /* SupportingFiles */,
+				76E4366724C0B54300C99FCC /* DonorsChooseKit */,
 				76E4364F24C0A4F800C99FCC /* App */,
+				76E4362124C0A4B500C99FCC /* SceneDelegate.swift */,
+				76E4361F24C0A4B500C99FCC /* AppDelegate.swift */,
+				76A3F6C624C7A8B600763A8A /* SupportingFiles */,
 				76E4362724C0A4B700C99FCC /* Preview Content */,
 			);
 			path = donorsChoose;
@@ -289,10 +300,10 @@
 		76E4364F24C0A4F800C99FCC /* App */ = {
 			isa = PBXGroup;
 			children = (
+				76BB80D424C869780078549D /* Utility */,
 				76E4365124C0A51800C99FCC /* AppView.swift */,
 				76E4365224C0A51800C99FCC /* AppState.swift */,
 				76E4365024C0A51800C99FCC /* TopTabView.swift */,
-				76E4366724C0B54300C99FCC /* DonorsChooseKit */,
 				76E4365624C0A51B00C99FCC /* AppViews */,
 			);
 			path = App;
@@ -480,6 +491,7 @@
 			files = (
 				76AE2D0324C2754700644D45 /* InspiresMeDetailView.swift in Sources */,
 				76A451D524C7642C00D28AE0 /* CustomSearchView.swift in Sources */,
+				76BB80D624C869830078549D /* UserSettings.swift in Sources */,
 				76E4365C24C0A56F00C99FCC /* LegacyInspiresMeView.swift in Sources */,
 				76E4367A24C0DB9E00C99FCC /* TeacherDetailView.swift in Sources */,
 				76E4365E24C0A57800C99FCC /* FavoritesView.swift in Sources */,

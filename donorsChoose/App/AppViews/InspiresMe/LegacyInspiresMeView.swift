@@ -40,7 +40,7 @@ struct LegacyInspiresMeView: View {
                     .onDelete(perform: onDelete)
                     .onMove(perform: onMove)
                 }
-                .navigationBarTitle("InspiresMe")
+                .navigationBarTitle(Text("Inspires Me"), displayMode: .inline)
                 .navigationBarItems(leading: EditButton(), trailing: addButton)
                 .environment(\.editMode, $editMode)
             }

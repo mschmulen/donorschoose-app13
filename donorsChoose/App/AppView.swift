@@ -39,12 +39,6 @@ struct AppView: View {
         }
     }//end body
     
-    func showTopView() {
-        DispatchQueue.main.async {
-            print( "showTopView")
-            self.appState.topView = .tabView
-        }
-    }
 }
 
 #if DEBUG

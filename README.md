@@ -9,6 +9,7 @@ Rebuild of DonorsChoose iOS app in SwiftUI and Combine to support iOS13 and late
 - Convert leagacy userPreferences to the new CoreData persistance mechanic
 - Finish Search and Favorites
 - Finish the More Tab
+- School Detail View
 
 ### Notes
 

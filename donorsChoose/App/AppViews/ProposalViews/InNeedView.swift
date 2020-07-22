@@ -37,7 +37,7 @@ struct InNeedView: View {
                 //self.store.fetchCustom(requestConfig: .sort(searchSortOption: SearchSortOption.urgency))
             }
             .listStyle(GroupedListStyle())
-            .navigationBarTitle("In Need")
+            .navigationBarTitle(Text("In Need"), displayMode: .inline)
         }
     }
 }

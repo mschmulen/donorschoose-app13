@@ -174,7 +174,7 @@ struct TeacherDetailView: View {
             self.store.fetchTeacher(teacherID: self.teacherID)
         }
         .listStyle(GroupedListStyle())
-        .navigationBarTitle("Teacher")
+        .navigationBarTitle(Text("Teacher"), displayMode: .inline)
         .navigationBarItems(leading: leadingButton, trailing: trailingButton)
     }
     

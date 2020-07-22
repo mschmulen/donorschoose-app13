@@ -91,7 +91,12 @@ struct InspiresMeView: View {
                 self.store.requestConfig = .keyword(keyword: "Science")
             }
             .listStyle(GroupedListStyle())
-            .navigationBarTitle("Inspires Me")
+            .navigationBarTitle(Text("Inspires Me"), displayMode: .inline)
+            .navigationBarItems(trailing:
+                NavigationLink(destination:CustomSearchView(onComplete: nil)) {
+                    Image(systemName: "plus")
+                }
+            )
         }
     }
 }

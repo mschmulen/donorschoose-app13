@@ -108,7 +108,7 @@ struct FavoritesView: View {
                     }
                 }
             }
-            .navigationBarTitle(Text("Favorites"))
+            .navigationBarTitle(Text("Favorites"), displayMode: .inline)
             .navigationBarItems(trailing:
                 NavigationLink(destination:CustomSearchView(onComplete: nil)) {
                     Image(systemName: "plus")
