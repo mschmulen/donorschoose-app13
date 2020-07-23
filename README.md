@@ -19,6 +19,4 @@ Post Product TODO:
 - compare and contrast the LOC of the SwiftUI and the UIKit implimentations
 - compare and contrast any performance impacts
 
-
-
  

@@ -11,14 +11,20 @@ import Combine
 public final class DCSchoolStore: ObservableObject {
     
     public let objectWillChange = ObservableObjectPublisher()
-    private let apiKey:String  = "DONORSCHOOSE"
     
     private var url:URL {
-        URL(string: "http://api.donorschoose.org/common/json-teacher.html?teacher=\(schoolID)&APIKey=\(apiKey)")!
+        URL(string: "http://api.donorschoose.org/common/json-school.html?school=\(schoolID)&APIKey=\(DCAPIKey)")!
     }
     
-    var schoolID: String
-
+    @Published public var schoolID: String = "" {
+        willSet {
+            updateChanges()
+        }
+        didSet {
+            fetch()
+        }
+    }
+    
     @Published public var model: SchoolModel? {
         willSet {
             updateChanges()
@@ -38,8 +44,11 @@ public final class DCSchoolStore: ObservableObject {
 
 extension DCSchoolStore {
     
-    public func fetchSchool(schoolID: String) {
-        self.schoolID = schoolID
+    public func fetch() {
+        
+        if schoolID.isEmpty {
+            return
+        }
         
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
@@ -60,7 +69,7 @@ extension DCSchoolStore {
             
             do {
                 
-                //print( "Request info: \(String(data:data, encoding: .utf8))")
+                print( "School Request info: \(String(data:data, encoding: .utf8))")
                 
                 let school = try JSONDecoder().decode(SchoolModel.self, from: data)
                 //let projectModel = try JSONDecoder().decode(ProjectNetworkModel.self, from: data)

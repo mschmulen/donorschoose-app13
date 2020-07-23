@@ -52,12 +52,15 @@ struct FavoritesView: View {
     var body: some View {
         NavigationView {
             List {
-                if proposals.count != 0 {
-                    Section(header:Text("Proposals")) {
-                        ForEach(proposals, id: \.title) {
-                            FavoriteProposalRow(model: $0)
+                
+                if searches.count != 0 {
+                    Section(header:Text("Searches")) {
+                        ForEach(searches, id: \.id) { model in
+                            NavigationLink(destination: CustomSearchView(onComplete: nil) ) {
+                                FavoriteSearchRow( model: model )
+                            }
                         }
-                        .onDelete(perform: deleteProposalModel)
+                        .onDelete(perform: deleteSearchModel)
                     }
                 }
                 
@@ -69,7 +72,7 @@ struct FavoritesView: View {
                         .onDelete(perform: deleteTeacherModel)
                     }
                 }
-
+                
                 if schools.count != 0 {
                     Section(header:Text("Schools")) {
                         ForEach(schools, id: \.title) {
@@ -79,16 +82,15 @@ struct FavoritesView: View {
                     }
                 }
                 
-                if searches.count != 0 {
-                    Section(header:Text("Searches")) {
-                        ForEach(searches, id: \.id) { model in
-                            //NavigationLink(destination: CustomSearchView(onComplete: nil) ) {
-                                FavoriteSearchRow( model: model )
-                            //}
+                if proposals.count != 0 {
+                    Section(header:Text("Proposals")) {
+                        ForEach(proposals, id: \.title) {
+                            FavoriteProposalRow(model: $0)
                         }
-                        .onDelete(perform: deleteSearchModel)
+                        .onDelete(perform: deleteProposalModel)
                     }
                 }
+                
             }
             .navigationBarTitle(Text("Favorites"), displayMode: .inline)
             .navigationBarItems(trailing:

@@ -16,6 +16,8 @@ struct ProposalDetailView: View {
     @State var isFavorite: Bool = false
     @State var showActionSheet: Bool = false
     
+    @State var percentCompleteProgressValue:Float = 0
+    
     var imagePlaceHolder: some View {
         ZStack {
             Color(.lightGray).edgesIgnoringSafeArea(.all)
@@ -38,8 +40,7 @@ struct ProposalDetailView: View {
             VStack {
                 HStack {
                     NavigationLink(destination: TeacherDetailView(
-                        teacherID: model.teacherId,
-                        teacherName: model.teacherName
+                        store: DCTeacherStore(teacherID: model.teacherId)
                     )){
                         Text(model.teacherName)
                             .font(.system(size: 20, weight: .bold, design: .rounded))
@@ -60,8 +61,8 @@ struct ProposalDetailView: View {
                         .padding()
                 } else {
                     NavigationLink(destination: SchoolDetailView(
-                        schoolID: model.extractedSchoolID!,
-                        schoolName: model.schoolName
+                        //store: DCSchoolStore(schoolID: model.extractedSchoolID!)
+                    store: DCSchoolStore(schoolID: "44656")
                     )){
                         Text(model.schoolName)
                             .font(.system(size: 20, weight: .bold, design: .rounded))
@@ -73,24 +74,38 @@ struct ProposalDetailView: View {
         }
     }
     
+    // TODO: Extract this to a custom view
     var statusBar: some View {
         VStack {
-            HStack {
+            HStack(alignment: .center, spacing: 60) {
                 VStack {
+                    Text("$\(model.costToComplete)")
+                        .font(.system(size: 22, weight: .bold, design: .rounded))
                     Text("Still Needed")
-                        .font(.system(size: 22, weight: .bold, design: .rounded))
-                    Text("\(model.costToComplete)")
-                        .font(.system(size: 20, weight: .medium, design: .rounded))
-                }.padding()
-                Spacer()
+                        .font(.system(size: 13, weight: .light, design: .rounded))
+                }
+                
                 VStack {
-                    Text("Donors")
+                    Text("\(model.percentFunded)%")
                         .font(.system(size: 22, weight: .bold, design: .rounded))
+                    Text("Funded")
+                        .font(.system(size: 13, weight: .light, design: .rounded))
+                }
+                
+                VStack {
                     Text("\(model.numDonors)")
-                        .font(.system(size: 20, weight: .medium, design: .rounded))
-                }.padding()
+                        .font(.system(size: 22, weight: .bold, design: .rounded))
+                    Text("Donors")
+                        .font(.system(size: 13, weight: .light, design: .rounded))
+                }
             }
             // Text("\(model.percentFunded)")
+            VStack(alignment: .leading) {
+                ProgressBar(value: $percentCompleteProgressValue)
+                    .frame(height: 10)
+            }
+            .padding(.leading, 10)
+            .padding(.trailing, 10)
         }
     }
     
@@ -151,12 +166,21 @@ struct ProposalDetailView: View {
                     .background(Color.accentColor)
                     .cornerRadius(8)
             }
-        }
+        }.onAppear(perform: {
+            self.startProgressBar(percentFunded: self.model.percentFunded)
+        })
         .navigationBarTitle(Text("Proposal"), displayMode: .inline)
         .navigationBarItems(leading: leadingButton, trailing: trailingButton)
         .sheet(isPresented: $showActionSheet) {
             ProjectActionSheet(model: self.model)
                 .environmentObject(self.appState)
+        }
+    }
+    
+    func startProgressBar(percentFunded: Int ) {
+        self.percentCompleteProgressValue = 0.0
+        for _ in 0...percentFunded {
+            self.percentCompleteProgressValue += 0.01
         }
     }
     

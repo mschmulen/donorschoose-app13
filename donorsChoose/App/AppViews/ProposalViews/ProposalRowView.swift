@@ -37,30 +37,32 @@ struct ProposalRowView: View {
                     .font(.system(size: 13, weight: .medium, design: .rounded))
             }
             
-            HStack {
+            // TODO: Extract this to a custom view
+            HStack(alignment: .center, spacing: 50) {
                 VStack {
-                    Text("$ \(model.costToComplete)")
+                    Text("$\(model.costToComplete)")
                     .font(.system(size: 22, weight: .bold, design: .rounded))
                     Text("Still Needed")
                     .font(.system(size: 13, weight: .light, design: .rounded))
-                }.padding()
-
+                }
+                
                 VStack {
-                    Text("% \(model.percentFunded)")
+                    Text("\(model.percentFunded)%")
                     .font(.system(size: 22, weight: .bold, design: .rounded))
                     Text("Funded")
                     .font(.system(size: 13, weight: .light, design: .rounded))
-                }.padding()
+                }
                 
                 VStack {
                     Text("\(model.numDonors)")
                     .font(.system(size: 22, weight: .bold, design: .rounded))
                     Text("Donors")
                     .font(.system(size: 13, weight: .light, design: .rounded))
-                }.padding()
+                }
             }
             VStack(alignment: .leading) {
-                ProgressBar(value: $percentCompleteProgressValue).frame(height: 15)
+                ProgressBar(value: $percentCompleteProgressValue)
+                    .frame(height: 10)
             }
             HStack {
                 Text("\(model.daysLeft)")

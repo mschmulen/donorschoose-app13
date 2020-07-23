@@ -8,59 +8,94 @@
 import SwiftUI
 import Combine
 
+public extension String {
+    func stringByAddingUrlEncoding() -> String {
+        let characterSet = NSMutableCharacterSet.alphanumeric()
+        characterSet.addCharacters(in: "-._* ")
+        return addingPercentEncoding(withAllowedCharacters: characterSet as CharacterSet)?.replacingOccurrences(of: " ", with: "+") ?? self
+    }
+}
+
 /// DonorsChoose Proposal Store
 public final class DCProposalStore: ObservableObject {
     
     public let objectWillChange = ObservableObjectPublisher()
-    private let apiKey: String  = "DONORSCHOOSE"
-    private let partnerId: String  = "20785042"
     
     private let rootURL: String = "https://api.donorschoose.org/common/json_feed.html"
     private let defaultSort: String = "0"
     
     // TODO convert to QueryItems
     private var url: URL {
+        
+        var components = URLComponents()
+        components.scheme = "http"
+        components.host = "api.donorschoose.org"
+        components.path = "/common/json_feed.html"
+        let maxQueryItem = URLQueryItem(name: "max", value: "\(ProjectSearchDataModel.max)")
+        let apiKeyQueryItem = URLQueryItem(name: "APIKey", value: DCAPIKey)
+        let partnerIdQueryItem = URLQueryItem(name: "partnerId", value: DCPartnerId)
+        
+        //let sortByQueryItem:URLQueryItem =  URLQueryItem(name: "sortBy", value: "\(searchModel.sortOption.requestValue())")
+        
         switch requestConfig {
         case .sort( let searchSortOption):
-            return URL(string:"\(rootURL)?max=\(ProjectSearchDataModel.max)&sortBy=\(searchSortOption.rawValue)&APIKey=\(apiKey)&partnerId=\(partnerId)")!
+            
+            let sortByQueryItem:URLQueryItem =  URLQueryItem(name: "sortBy", value: "\(searchSortOption.rawValue)")
+            
+            components.queryItems = [
+                maxQueryItem,
+                sortByQueryItem,
+                apiKeyQueryItem,
+                partnerIdQueryItem
+            ]
             
         case .nearestGeo(let latitude, let longitude):
-            return URL(string:"\(rootURL)?max=\(ProjectSearchDataModel.max)&sortBy=\(defaultSort)&APIKey=\(apiKey)&partnerId=\(partnerId)&centerLat=\(latitude)&centerLng=\(longitude)")!
-            
-            //            if let latitude = searchModel.latitude, let longitude = searchModel.longitude {
-            //                let centerLatQueryItem = URLQueryItem(name: "centerLat", value: "\(latitude)")
-            //                let centerLngQueryItem = URLQueryItem(name: "centerLng", value: "\(longitude)")
-            //                // MAS TODO support other parameters
-            //                components.queryItems = [apiKeyQueryItem, centerLatQueryItem,centerLngQueryItem, partnerIdQueryItem ] // sortByQueryItem, maxQueryItem ,]
-            //            } else {
-            //                components.queryItems = [maxQueryItem, sortByQueryItem, apiKeyQueryItem, partnerIdQueryItem]
-            //            }
+            let centerLatQueryItem = URLQueryItem(name: "centerLat", value: "\(latitude)")
+            let centerLngQueryItem = URLQueryItem(name: "centerLng", value: "\(longitude)")
+            components.queryItems = [
+                apiKeyQueryItem,
+                centerLatQueryItem,
+                centerLngQueryItem,
+                partnerIdQueryItem
+            ]
             
         case .keyword( let keyword):
-            return URL(string:"\(rootURL)?max=\(ProjectSearchDataModel.max)&sortBy=\(defaultSort)&keywords=\(keyword)&APIKey=\(apiKey)&partnerId=\(partnerId)")!
+            let keywordsQueryItem:URLQueryItem = URLQueryItem(name: "keywords", value: "\(keyword.stringByAddingUrlEncoding())")
             
-            //            if let keywords = searchModel.keywords {
-            //                let keywordsQueryItem:URLQueryItem = URLQueryItem(name: "keywords", value: "\(keywords.stringByAddingUrlEncoding())")
-            //                components.queryItems = [maxQueryItem, keywordsQueryItem, sortByQueryItem, apiKeyQueryItem, partnerIdQueryItem]
-            //            } else {
-            //                components.queryItems = [maxQueryItem, sortByQueryItem, apiKeyQueryItem, partnerIdQueryItem]
-            //            }
+            components.queryItems = [
+                maxQueryItem,
+                keywordsQueryItem,
+                apiKeyQueryItem,
+                partnerIdQueryItem
+            ]
             
-        case .subject1 ( let searchSubject):
-            return URL(string:"\(rootURL)?max=\(ProjectSearchDataModel.max)&sortBy=\(defaultSort)&APIKey=\(apiKey)&partnerId=\(partnerId)")!
+//        case .subject1 ( let searchSubject):
+//            fatalError("No implimented")
+//
+//            components.queryItems = [
+//                maxQueryItem,
+//                apiKeyQueryItem,
+//                partnerIdQueryItem
+//            ]
             
         case .location( let locationInfo ):
-            return URL(string:"\(rootURL)?max=\(ProjectSearchDataModel.max)&sortBy=\(defaultSort)&APIKey=\(apiKey)&partnerId=\(partnerId)")!
+            fatalError("No implimented")
+
+            let stateQueryItem = URLQueryItem(name: "state", value: locationInfo.state)
+            // let components.queryItems = [apiKeyQueryItem, stateQueryItem, partnerIdQueryItem ]
             
-            //            if let locationInfo = searchModel.locationInfo {
-            //                let stateQueryItem = URLQueryItem(name: "state", value: locationInfo.state)
-            //
-            //                // MAS TODO
-            //                // let communityQueryItem = URLQueryItem(name: "community", value: "10007")
-            //                // https://api.donorschoose.org/common/json_feed.html?state=NC&community=10007:3&APIKey=DONORSCHOOSE
-            //                components.queryItems = [apiKeyQueryItem, stateQueryItem, partnerIdQueryItem ]
-            //            }
+            //https://api.donorschoose.org/common/json_feed.html?state=NC&community=10007:3&APIKey=DONORSCHOOSE
+            
+            components.queryItems = [
+                maxQueryItem,
+                apiKeyQueryItem,
+                stateQueryItem,
+                partnerIdQueryItem
+            ]
+            
         }
+        
+        return components.url!
     }
     
     @Published public var requestConfig:ProjectSearchDataModel = .sort(searchSortOption: SearchSortOption.urgency) {

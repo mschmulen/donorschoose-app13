@@ -50,34 +50,14 @@ struct InspiresMeView: View {
                 List {
                     
                     if searches.count != 0 {
-                        Section(header:Text("Searches")) {
-                            ForEach(searches, id: \.id) {
-                                FavoriteSearchRow(
-                                    model: $0
+                        ForEach(searches, id: \.id) { model in
+                            Section(header:Text("Search: \(model.title ?? "~")")) {
+                                FavoriteSearchResults(
+                                    model: model
                                 )
                             }
                         }
                     }
-                    
-//                    if teachers.count != 0 {
-//                        Section(header:Text("Teachers")) {
-//                            ForEach(teachers, id: \.title) {
-//                                FavoriteTeacherRow(
-//                                    model: $0
-//                                )
-//                            }
-//                        }
-//                    }
-//
-//                    if schools.count != 0 {
-//                        Section(header:Text("Schools")) {
-//                            ForEach(schools, id: \.title) {
-//                                FavoriteSchoolRow(
-//                                    model: $0
-//                                )
-//                            }
-//                        }
-//                    }
                     
                     Section(header: Text("Search")) {
                         ForEach( self.store.models) { model in
@@ -97,6 +77,22 @@ struct InspiresMeView: View {
                     Image(systemName: "plus")
                 }
             )
+        }
+    }
+}
+
+
+
+struct FavoriteSearchResults: View {
+    
+    var model: FavoriteSearch
+    
+    var body: some View {
+        VStack{
+            Text("\(model.title ?? "~")")
+                .font(.system(size: 20, weight: .medium, design: .rounded))
+            Text("Search")
+                .font(.system(size: 15, weight: .medium, design: .rounded))
         }
     }
 }

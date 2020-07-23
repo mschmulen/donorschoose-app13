@@ -11,15 +11,21 @@ import Combine
 public final class DCTeacherStore: ObservableObject {
     
     public let objectWillChange = ObservableObjectPublisher()
-    private let apiKey:String  = "DONORSCHOOSE"
     
-    private var url:URL {
-        URL(string: "http://api.donorschoose.org/common/json-teacher.html?teacher=\(teacherID)&APIKey=\(apiKey)")!
+    @Published public var teacherID: String = "" {
+        willSet {
+            updateChanges()
+        }
+        didSet {
+            fetch()
+        }
     }
     
-    var teacherID: String
+    private var url:URL {
+        URL(string: "http://api.donorschoose.org/common/json-teacher.html?teacher=\(teacherID)&APIKey=\(DCAPIKey)")!
+    }
     
-    @Published public var model: TeacherModel? = TeacherModel.mock {
+    @Published public var model: TeacherModel? {
         willSet {
             updateChanges()
         }
@@ -38,8 +44,11 @@ public final class DCTeacherStore: ObservableObject {
 
 extension DCTeacherStore {
     
-    public func fetchTeacher(teacherID: String) {
-        self.teacherID = teacherID
+    public func fetch() {
+        
+        if teacherID.isEmpty {
+            return
+        }
         
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
@@ -60,15 +69,10 @@ extension DCTeacherStore {
             
             do {
                 //print( "Request info: \(String(data:data, encoding: .utf8))")
-                //if let debugString =
                 
                 let teacher = try JSONDecoder().decode(TeacherModel.self, from: data)
-                //let projectModel = try JSONDecoder().decode(ProjectNetworkModel.self, from: data)
-                //print( "projectModel \(projectModel)")
-                //print( "\(projectModel.proposals.count)")
-                DispatchQueue.main.async {
-                    self.model = teacher
-                }
+                self.model = teacher
+                self.updateChanges()
             }
             catch {
                 print("Error: \(error.localizedDescription)")

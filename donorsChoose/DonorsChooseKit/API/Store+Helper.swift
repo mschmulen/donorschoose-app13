@@ -147,10 +147,19 @@ public enum SearchSortOption: Int, Codable {
 public enum ProjectSearchDataModel {
     case sort( searchSortOption: SearchSortOption)
     case keyword( keyword:String)
-    case subject1 ( searchSubject: SearchSubject)
+    //case subject1 ( searchSubject: SearchSubject)
     case location( locationInfo:LocationInfo )
-    
     case nearestGeo(latitude:Double, longitude:Double)
     
     static var max = 20
 }
+
+#if targetEnvironment(simulator)
+    let DCAPIKey = "DONORSCHOOSE"
+#else
+    let DCAPIKey = "DONORSCHOOSE"
+#endif
+
+let DCPartnerId = "20785042"
+
+

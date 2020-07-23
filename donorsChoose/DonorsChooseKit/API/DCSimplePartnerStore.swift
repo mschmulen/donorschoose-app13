@@ -11,10 +11,9 @@ import Combine
 public final class DCPartnerStore: ObservableObject {
     
     public let objectWillChange = ObservableObjectPublisher()
-    private let apiKey:String  = "DONORSCHOOSE"
     
     private var url:URL {
-        URL(string: "http://api.donorschoose.org/common/json-teacher.html?teacher=\(teacherID)&APIKey=\(apiKey)")!
+        URL(string: "http://api.donorschoose.org/common/json-teacher.html?teacher=\(teacherID)&APIKey=\(DCAPIKey)")!
     }
     
     var teacherID: String

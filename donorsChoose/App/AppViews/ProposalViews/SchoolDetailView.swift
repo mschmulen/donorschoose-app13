@@ -11,13 +11,10 @@ struct SchoolDetailView: View {
     
     @EnvironmentObject var appState: AppState
     
-    @ObservedObject var store = DCSchoolStore(schoolID: "7746")
+    @State var store: DCSchoolStore
     
     @State var isFavorite: Bool = false
     @State var showActionSheet: Bool = false
-    
-    var schoolID: String
-    var schoolName: String
     
     var header: some View {
         ZStack{
@@ -26,7 +23,7 @@ struct SchoolDetailView: View {
                 .frame(height:80)
             VStack() {
                 HStack() {
-                    Text(store.model?.name ?? "")
+                    Text(store.model?.name ?? "~")
                         .font(.system(size: 20, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
                         .padding()
@@ -83,11 +80,14 @@ struct SchoolDetailView: View {
                 }
             }
         }
-        .navigationBarItems(leading: leadingButton, trailing: trailingButton)
         .onAppear {
-            print("onAppear ")
-            self.store.fetchSchool(schoolID: self.schoolID)
+            print("SchoolDetailView.onAppear")
+            print("\(self.store.schoolID)")
+            self.store.fetch()
         }
+        .listStyle(GroupedListStyle())
+        .navigationBarTitle(Text("School"), displayMode: .inline)
+        .navigationBarItems(leading: leadingButton, trailing: trailingButton)
     }
     
     private var trailingButton: some View {
@@ -101,8 +101,9 @@ struct SchoolDetailView: View {
     }
     
     func onFavoriteTouch() {
-        appState.addFavoriteSchool(id:schoolID, title:schoolName)
-        isFavorite.toggle()
+        // MAS TODO Fix
+//        appState.addFavoriteSchool(id:schoolID, title:schoolName)
+//        isFavorite.toggle()
     }
     
     private var leadingButton: some View {
@@ -119,8 +120,7 @@ struct SchoolDetailView: View {
 struct SchoolDetailView_Previews: PreviewProvider {
     static var previews: some View {
         SchoolDetailView(
-            schoolID: "7746",
-            schoolName:"schoolName"
+            store: DCSchoolStore(schoolID: "44656")
         )
     }
 }
