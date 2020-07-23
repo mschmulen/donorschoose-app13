@@ -132,7 +132,7 @@ extension ProposalModel {
   "shortDescription": "I teach in a public 4th-grade classroom at a Title I school. I have 40 new scholars walking through my door in a few short weeks. These students have been learning from home since March but many...",
   "fulfillmentTrailer": "Help me give my students tablets to enhance their learning experience in our classroom.",
   "snippets": [],
-  "percentFunded": "91",
+  "percentFunded": "95",
   "numDonors": "15",
   "costToComplete": "59.39",
   "studentLed": false,

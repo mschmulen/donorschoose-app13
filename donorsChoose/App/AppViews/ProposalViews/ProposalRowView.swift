@@ -11,7 +11,7 @@ struct ProposalRowView: View {
     
     var model: ProposalModel
     
-    @State var percentComplete:CGFloat = 0
+    @State var percentCompleteProgressValue:Float = 0
     
     var imagePlaceHolder: some View {
         ZStack {
@@ -44,8 +44,14 @@ struct ProposalRowView: View {
                     Text("Still Needed")
                     .font(.system(size: 13, weight: .light, design: .rounded))
                 }.padding()
+
+                VStack {
+                    Text("% \(model.percentFunded)")
+                    .font(.system(size: 22, weight: .bold, design: .rounded))
+                    Text("Funded")
+                    .font(.system(size: 13, weight: .light, design: .rounded))
+                }.padding()
                 
-                Spacer()
                 VStack {
                     Text("\(model.numDonors)")
                     .font(.system(size: 22, weight: .bold, design: .rounded))
@@ -54,20 +60,8 @@ struct ProposalRowView: View {
                 }.padding()
             }
             VStack(alignment: .leading) {
-                GeometryReader { geometry in
-                    ZStack {
-                        Rectangle()
-                            .frame(width: geometry.size.width * 0.5, height: 5)
-                            .foregroundColor(.gray)
-//                            .alignmentGuide(.leading) { (dim) -> CGFloat in
-//                                0
-//                        }
-                        Rectangle()
-                            .frame(width: geometry.size.width * self.percentComplete, height: 3, alignment: .leading)
-                            .foregroundColor(.green)
-                    }
-                }
-            }//.frame(alignment: .leading)
+                ProgressBar(value: $percentCompleteProgressValue).frame(height: 15)
+            }
             HStack {
                 Text("\(model.daysLeft)")
                 .font(.system(size: 18, weight: .bold, design: .rounded))
@@ -76,11 +70,17 @@ struct ProposalRowView: View {
             }
         }
         .onAppear {
-            withAnimation {
-                self.percentComplete = CGFloat.random(in: 0...1)
-            }
+            self.startProgressBar(percentFunded: self.model.percentFunded)
         }
     }
+    
+    func startProgressBar(percentFunded: Int ) {
+        self.percentCompleteProgressValue = 0.0
+        for _ in 0...percentFunded {
+            self.percentCompleteProgressValue += 0.01
+        }
+    }
+    
 }
 
 struct ProposalRowView_Previews: PreviewProvider {

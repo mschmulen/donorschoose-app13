@@ -31,8 +31,6 @@ struct AppView: View {
                 OnBoardingView()
                     .environmentObject(appState)
             }
-            
-            //EmptyView()
     }//end body
     
 }
